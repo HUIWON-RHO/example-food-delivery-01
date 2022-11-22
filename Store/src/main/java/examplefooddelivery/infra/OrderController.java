@@ -20,79 +20,7 @@ public class OrderController {
 
 
 
-    @RequestMapping(value = "orders/{id}/accept",
-        method = RequestMethod.PUT,
-        produces = "application/json;charset=UTF-8")
-    public Order accept(@PathVariable(value = "id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-            System.out.println("##### /order/accept  called #####");
-            Optional<Order> optionalOrder = orderRepository.findById(id);
-            
-            optionalOrder.orElseThrow(()-> new Exception("No Entity Found"));
-            Order order = optionalOrder.get();
-            order.accept();
-            
-            orderRepository.save(order);
-            return order;
-            
-    }
-    
 
-
-
-    @RequestMapping(value = "orders/{id}/reject",
-        method = RequestMethod.PUT,
-        produces = "application/json;charset=UTF-8")
-    public Order reject(@PathVariable(value = "id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-            System.out.println("##### /order/reject  called #####");
-            Optional<Order> optionalOrder = orderRepository.findById(id);
-            
-            optionalOrder.orElseThrow(()-> new Exception("No Entity Found"));
-            Order order = optionalOrder.get();
-            order.reject();
-            
-            orderRepository.save(order);
-            return order;
-            
-    }
-    
-
-
-
-    @RequestMapping(value = "orders/{id}/cookstart",
-        method = RequestMethod.PUT,
-        produces = "application/json;charset=UTF-8")
-    public Order cookStart(@PathVariable(value = "id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-            System.out.println("##### /order/cookStart  called #####");
-            Optional<Order> optionalOrder = orderRepository.findById(id);
-            
-            optionalOrder.orElseThrow(()-> new Exception("No Entity Found"));
-            Order order = optionalOrder.get();
-            order.cookStart();
-            
-            orderRepository.save(order);
-            return order;
-            
-    }
-    
-
-
-
-    @RequestMapping(value = "orders/{id}/cookfinish",
-        method = RequestMethod.PUT,
-        produces = "application/json;charset=UTF-8")
-    public Order cookFinish(@PathVariable(value = "id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-            System.out.println("##### /order/cookFinish  called #####");
-            Optional<Order> optionalOrder = orderRepository.findById(id);
-            
-            optionalOrder.orElseThrow(()-> new Exception("No Entity Found"));
-            Order order = optionalOrder.get();
-            order.cookFinish();
-            
-            orderRepository.save(order);
-            return order;
-            
-    }
-    
 
 
 

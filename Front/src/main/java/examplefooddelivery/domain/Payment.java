@@ -35,13 +35,16 @@ public class Payment  {
     
     private String paymentPrice;
 
-    @PostPersist
-    public void onPostPersist(){
+    @PostUpdate
+    public void onPostUpdate(){
 
 
         OrderPaid orderPaid = new OrderPaid(this);
         orderPaid.publishAfterCommit();
 
+    }
+    @PreUpdate
+    public void onPreUpdate(){
     }
 
     public static PaymentRepository repository(){
@@ -51,8 +54,6 @@ public class Payment  {
 
 
 
-    public void pay(){
-    }
 
 
 

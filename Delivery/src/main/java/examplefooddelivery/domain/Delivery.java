@@ -1,5 +1,8 @@
 package examplefooddelivery.domain;
 
+import examplefooddelivery.domain.Picked;
+import examplefooddelivery.domain.Delivered;
+import examplefooddelivery.domain.DeliveryFinished;
 import examplefooddelivery.DeliveryApplication;
 import javax.persistence.*;
 import java.util.List;
@@ -34,6 +37,24 @@ public class Delivery  {
     
     private String status;
 
+    @PostUpdate
+    public void onPostUpdate(){
+
+
+        Picked picked = new Picked(this);
+        picked.publishAfterCommit();
+
+
+
+        Delivered delivered = new Delivered(this);
+        delivered.publishAfterCommit();
+
+
+
+        DeliveryFinished deliveryFinished = new DeliveryFinished(this);
+        deliveryFinished.publishAfterCommit();
+
+    }
     @PreUpdate
     public void onPreUpdate(){
     }
@@ -45,21 +66,6 @@ public class Delivery  {
 
 
 
-    public void pick(){
-        Picked picked = new Picked(this);
-        picked.publishAfterCommit();
-
-    }
-    public void confirm(){
-        DeliveryFinished deliveryFinished = new DeliveryFinished(this);
-        deliveryFinished.publishAfterCommit();
-
-    }
-    public void deliver(){
-        Delivered delivered = new Delivered(this);
-        delivered.publishAfterCommit();
-
-    }
 
     public static void passOrderInfo(CookFinished cookFinished){
 

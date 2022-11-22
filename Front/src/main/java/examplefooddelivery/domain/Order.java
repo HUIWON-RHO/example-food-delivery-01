@@ -1,5 +1,7 @@
 package examplefooddelivery.domain;
 
+import examplefooddelivery.domain.OrderPlaced;
+import examplefooddelivery.domain.OrderCanceled;
 import examplefooddelivery.FrontApplication;
 import javax.persistence.*;
 import java.util.List;
@@ -48,10 +50,32 @@ public class Order  {
 
     @PostPersist
     public void onPostPersist(){
+
+        //Following code causes dependency to external APIs
+        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+
+
+        examplefooddelivery.external.Payment payment = new examplefooddelivery.external.Payment();
+        // mappings goes here
+        FrontApplication.applicationContext.getBean(examplefooddelivery.external.PaymentService.class)
+            .pay(payment);
+
+
+        OrderPlaced orderPlaced = new OrderPlaced(this);
+        orderPlaced.publishAfterCommit();
+
         // Get request from Menu
         //examplefooddelivery.external.Menu menu =
         //    Application.applicationContext.getBean(examplefooddelivery.external.MenuService.class)
         //    .getMenu(/** mapping value needed */);
+
+    }
+    @PostRemove
+    public void onPostRemove(){
+
+
+        OrderCanceled orderCanceled = new OrderCanceled(this);
+        orderCanceled.publishAfterCommit();
 
     }
     @PreRemove
@@ -65,24 +89,6 @@ public class Order  {
 
 
 
-    public void order(){
-        OrderPlaced orderPlaced = new OrderPlaced(this);
-        orderPlaced.publishAfterCommit();
-
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
-
-        examplefooddelivery.external.Payment payment = new examplefooddelivery.external.Payment();
-        // mappings goes here
-        FrontApplication.applicationContext.getBean(examplefooddelivery.external.PaymentService.class)
-            .pay(payment);
-
-    }
-    public void cancel(){
-        OrderCanceled orderCanceled = new OrderCanceled(this);
-        orderCanceled.publishAfterCommit();
-
-    }
 
     public static void updateStatus(CookStarted cookStarted){
 

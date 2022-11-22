@@ -20,23 +20,5 @@ public class MenuController {
 
 
 
-    @RequestMapping(value = "menus/{id}/addmenu",
-        method = RequestMethod.PUT,
-        produces = "application/json;charset=UTF-8")
-    public Menu addMenu(@PathVariable(value = "id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-            System.out.println("##### /menu/addMenu  called #####");
-            Optional<Menu> optionalMenu = menuRepository.findById(id);
-            
-            optionalMenu.orElseThrow(()-> new Exception("No Entity Found"));
-            Menu menu = optionalMenu.get();
-            menu.addMenu();
-            
-            menuRepository.save(menu);
-            return menu;
-            
-    }
-    
-
-
 
 }

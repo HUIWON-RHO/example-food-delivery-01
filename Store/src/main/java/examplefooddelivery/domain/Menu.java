@@ -1,5 +1,6 @@
 package examplefooddelivery.domain;
 
+import examplefooddelivery.domain.MenuAdded;
 import examplefooddelivery.StoreApplication;
 import javax.persistence.*;
 import java.util.List;
@@ -34,6 +35,14 @@ public class Menu  {
     
     private String price;
 
+    @PostPersist
+    public void onPostPersist(){
+
+
+        MenuAdded menuAdded = new MenuAdded(this);
+        menuAdded.publishAfterCommit();
+
+    }
     @PrePersist
     public void onPrePersist(){
     }
@@ -45,11 +54,6 @@ public class Menu  {
 
 
 
-    public void addMenu(){
-        MenuAdded menuAdded = new MenuAdded(this);
-        menuAdded.publishAfterCommit();
-
-    }
 
 
 

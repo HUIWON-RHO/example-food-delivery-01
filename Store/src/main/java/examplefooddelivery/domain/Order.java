@@ -1,5 +1,9 @@
 package examplefooddelivery.domain;
 
+import examplefooddelivery.domain.OrderAccepted;
+import examplefooddelivery.domain.OrderRejected;
+import examplefooddelivery.domain.CookStarted;
+import examplefooddelivery.domain.CookFinished;
 import examplefooddelivery.StoreApplication;
 import javax.persistence.*;
 import java.util.List;
@@ -52,8 +56,28 @@ public class Order  {
     
     private String status;
 
-    @PrePersist
-    public void onPrePersist(){
+    @PostUpdate
+    public void onPostUpdate(){
+
+
+        OrderAccepted orderAccepted = new OrderAccepted(this);
+        orderAccepted.publishAfterCommit();
+
+
+
+        OrderRejected orderRejected = new OrderRejected(this);
+        orderRejected.publishAfterCommit();
+
+
+
+        CookStarted cookStarted = new CookStarted(this);
+        cookStarted.publishAfterCommit();
+
+
+
+        CookFinished cookFinished = new CookFinished(this);
+        cookFinished.publishAfterCommit();
+
     }
     @PreUpdate
     public void onPreUpdate(){
@@ -66,26 +90,6 @@ public class Order  {
 
 
 
-    public void accept(){
-        OrderAccepted orderAccepted = new OrderAccepted(this);
-        orderAccepted.publishAfterCommit();
-
-    }
-    public void reject(){
-        OrderRejected orderRejected = new OrderRejected(this);
-        orderRejected.publishAfterCommit();
-
-    }
-    public void cookStart(){
-        CookStarted cookStarted = new CookStarted(this);
-        cookStarted.publishAfterCommit();
-
-    }
-    public void cookFinish(){
-        CookFinished cookFinished = new CookFinished(this);
-        cookFinished.publishAfterCommit();
-
-    }
 
     public static void passOrderInfo(OrderPaid orderPaid){
 

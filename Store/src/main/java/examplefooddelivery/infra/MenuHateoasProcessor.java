@@ -11,7 +11,6 @@ public class MenuHateoasProcessor implements RepresentationModelProcessor<Entity
 
     @Override
     public EntityModel<Menu> process(EntityModel<Menu> model) {
-        model.add(Link.of(model.getRequiredLink("self").getHref() + "/addmenu").withRel("addmenu"));
 
         
         return model;
