@@ -69,7 +69,7 @@
   - Command and Query Responsibility Segregation(명령과 조회의 책임 분리)
   - Read model, 초록색스티커
   - 'Menu' (기능적 요구사항 추가내용 1. 상점주는 '메뉴'를 추가할 수 있다)
-  ![image](https://user-images.githubusercontent.com/59330544/203246417-28f33010-e3c0-452f-ac93-9c7c403dfa24.png)
+  ![image](https://user-images.githubusercontent.com/59330544/203259355-4dfe3c32-1743-4fd3-8274-bd52d5aee2da.png)
   - 'Review' (기능적 요구사항 추가내용 2. 모든 거래가 완료되면 고객은 '리뷰'를 작성할 수 있고, 고객이 메뉴를 선택할 때 리뷰를 참고할 수 있다.)
   ![image](https://user-images.githubusercontent.com/59330544/203247241-9bf53ae1-7db6-4a57-99e7-359933f2f72e.png)
   - 주문을 하고 계산을 하면 'OrderStatus'가 생성되고 주문상태가 바뀔 때마다 상태를 업데이트 한다.
@@ -91,7 +91,7 @@
 ## 5. Circuit Breaker
   - 상점주가 메뉴의 상태를 'soldout'으로 등록하면 고객은 주문할 수 없다. (기능적 요구사항 추가내용 1. 상점주는 '메뉴'를 추가할 수 있다) 
   ![image](https://user-images.githubusercontent.com/59330544/203255708-f72ff6d6-cb6b-4afe-9d7a-91afcb9d2178.png)
-  
+  ![image](https://user-images.githubusercontent.com/59330544/203258590-a4e647f1-3819-47de-a809-15de522eb351.png)
 ## 6. Gateway
   ![image](https://user-images.githubusercontent.com/59330544/203255189-f866234c-31a4-4355-a3e9-2929a244f507.png)
 
