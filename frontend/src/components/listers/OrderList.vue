@@ -14,7 +14,6 @@
                             
                             
                             
-                            
                         </v-list-item-title>
 
                         <v-list-item-subtitle style="font-size:25px; font-weight:700;">
@@ -23,7 +22,6 @@
                             [ Price :  {{data.price }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ CustomerId :  {{data.customerId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ CustomerAddress :  {{data.customerAddress }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ Status :  {{data.status }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </v-list-item-subtitle>
 
                     </v-list-item-content>
@@ -108,9 +106,8 @@
                 'orderId': 0,
                 'food': '',
                 'price': 0,
-                'customerId': 0,
-                'customerAddress': 0,
-                'status': '',
+                'customerId': '',
+                'customerAddress': '',
             }
         },
         methods: {

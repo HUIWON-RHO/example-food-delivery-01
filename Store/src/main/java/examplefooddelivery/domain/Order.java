@@ -48,7 +48,7 @@ public class Order  {
     
     
     
-    private Integer customerAddress;
+    private String customerAddress;
     
     
     

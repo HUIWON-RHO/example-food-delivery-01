@@ -18,7 +18,7 @@
                 <Number label="CustomerId" v-model="item.customerId" :editMode="editMode" @change="change" />
             </div>
             <div>
-                <Number label="CustomerAddress" v-model="item.customerAddress" :editMode="editMode" @change="change" />
+                <String label="CustomerAddress" v-model="item.customerAddress" :editMode="editMode" @change="change" />
             </div>
             <div>
                 <String label="Status" v-model="item.status" :editMode="editMode" @change="change" />

@@ -71,9 +71,8 @@
                 'orderId': 0,
                 'food': '',
                 'price': 0,
-                'customerId': 0,
-                'customerAddress': 0,
-                'status': '',
+                'customerId': '',
+                'customerAddress': '',
             }
         },
         methods:{

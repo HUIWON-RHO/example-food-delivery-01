@@ -71,7 +71,6 @@
                     { text: "price", value: "price" },
                     { text: "customerId", value: "customerId" },
                     { text: "customerAddress", value: "customerAddress" },
-                    { text: "status", value: "status" },
                 ],
             order : [],
             newValue: {},
@@ -92,9 +91,8 @@
                 'orderId': 0,
                 'food': '',
                 'price': 0,
-                'customerId': 0,
-                'customerAddress': 0,
-                'status': '',
+                'customerId': '',
+                'customerAddress': '',
             }
         },
         methods: {
