@@ -20,9 +20,8 @@
             <Number label="OrderId" v-model="value.orderId" :editMode="editMode"/>
             <String label="Food" v-model="value.food" :editMode="editMode"/>
             <Number label="Price" v-model="value.price" :editMode="editMode"/>
-            <Number label="CustomerId" v-model="value.customerId" :editMode="editMode"/>
-            <Number label="CustomerAddress" v-model="value.customerAddress" :editMode="editMode"/>
-            <String label="Status" v-model="value.status" :editMode="editMode"/>
+            <String label="CustomerId" v-model="value.customerId" :editMode="editMode"/>
+            <String label="CustomerAddress" v-model="value.customerAddress" :editMode="editMode"/>
         </v-card-text>
 
         <v-card-actions>
@@ -62,6 +61,22 @@
         </v-card-actions>
         <v-card-actions>
             <v-spacer></v-spacer>
+            <v-btn
+                    v-if="!editMode"
+                    color="deep-purple lighten-2"
+                    text
+                    @click="order"
+            >
+                Order
+            </v-btn>
+            <v-btn
+                    v-if="!editMode"
+                    color="deep-purple lighten-2"
+                    text
+                    @click="cancel"
+            >
+                Cancel
+            </v-btn>
         </v-card-actions>
 
         <v-snackbar
@@ -192,6 +207,44 @@
             },
             change(){
                 this.$emit('input', this.value);
+            },
+            async order() {
+                try {
+                    if(!this.offline) {
+                        var temp = await axios.put(axios.fixUrl(this.value._links['order'].href))
+                        for(var k in temp.data) {
+                            this.value[k]=temp.data[k];
+                        }
+                    }
+
+                    this.editMode = false;
+                } catch(e) {
+                    this.snackbar.status = true
+                    if(e.response && e.response.data.message) {
+                        this.snackbar.text = e.response.data.message
+                    } else {
+                        this.snackbar.text = e
+                    }
+                }
+            },
+            async cancel() {
+                try {
+                    if(!this.offline) {
+                        var temp = await axios.put(axios.fixUrl(this.value._links['cancel'].href))
+                        for(var k in temp.data) {
+                            this.value[k]=temp.data[k];
+                        }
+                    }
+
+                    this.editMode = false;
+                } catch(e) {
+                    this.snackbar.status = true
+                    if(e.response && e.response.data.message) {
+                        this.snackbar.text = e.response.data.message
+                    } else {
+                        this.snackbar.text = e
+                    }
+                }
             },
         },
     }

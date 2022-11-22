@@ -11,6 +11,8 @@ public class OrderHateoasProcessor implements RepresentationModelProcessor<Entit
 
     @Override
     public EntityModel<Order> process(EntityModel<Order> model) {
+        model.add(Link.of(model.getRequiredLink("self").getHref() + "/order").withRel("order"));
+        model.add(Link.of(model.getRequiredLink("self").getHref() + "/cancel").withRel("cancel"));
 
         
         return model;

@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.hateoas.EntityModel;
 
 @Component
-public class PaymentHateoasProcessor implements RepresentationModelProcessor<EntityModel<Payment>>  {
+public class MenuHateoasProcessor implements RepresentationModelProcessor<EntityModel<Menu>>  {
 
     @Override
-    public EntityModel<Payment> process(EntityModel<Payment> model) {
-        model.add(Link.of(model.getRequiredLink("self").getHref() + "/pay").withRel("pay"));
+    public EntityModel<Menu> process(EntityModel<Menu> model) {
+        model.add(Link.of(model.getRequiredLink("self").getHref() + "/addmenu").withRel("addmenu"));
 
         
         return model;

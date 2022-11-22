@@ -10,16 +10,16 @@
         </template>
 
         <v-card-title v-if="value._links">
-            Payment # {{value._links.self.href.split("/")[value._links.self.href.split("/").length - 1]}}
+            Menu # {{value._links.self.href.split("/")[value._links.self.href.split("/").length - 1]}}
         </v-card-title >
         <v-card-title v-else>
-            Payment
+            Menu
         </v-card-title >
 
         <v-card-text>
-            <Number label="OrderId" v-model="value.orderId" :editMode="editMode"/>
-            <String label="PaymentId" v-model="value.paymentId" :editMode="editMode"/>
-            <String label="PaymentPrice" v-model="value.paymentPrice" :editMode="editMode"/>
+            <Number label="FoodId" v-model="value.foodId" :editMode="editMode"/>
+            <String label="FoodName" v-model="value.foodName" :editMode="editMode"/>
+            <String label="Price" v-model="value.price" :editMode="editMode"/>
         </v-card-text>
 
         <v-card-actions>
@@ -63,9 +63,9 @@
                     v-if="!editMode"
                     color="deep-purple lighten-2"
                     text
-                    @click="pay"
+                    @click="addMenu"
             >
-                Pay
+                AddMenu
             </v-btn>
         </v-card-actions>
 
@@ -89,7 +89,7 @@
 
 
     export default {
-        name: 'Payment',
+        name: 'Menu',
         components:{
         },
         props: {
@@ -141,7 +141,7 @@
 
                     if(!this.offline) {
                         if(this.isNew) {
-                            temp = await axios.post(axios.fixUrl('/payments'), this.value)
+                            temp = await axios.post(axios.fixUrl('/menus'), this.value)
                         } else {
                             temp = await axios.put(axios.fixUrl(this.value._links.self.href), this.value)
                         }
@@ -198,10 +198,10 @@
             change(){
                 this.$emit('input', this.value);
             },
-            async pay() {
+            async addMenu() {
                 try {
                     if(!this.offline) {
-                        var temp = await axios.put(axios.fixUrl(this.value._links['pay'].href))
+                        var temp = await axios.put(axios.fixUrl(this.value._links['addmenu'].href))
                         for(var k in temp.data) {
                             this.value[k]=temp.data[k];
                         }

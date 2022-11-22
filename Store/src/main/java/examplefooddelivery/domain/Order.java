@@ -1,9 +1,5 @@
 package examplefooddelivery.domain;
 
-import examplefooddelivery.domain.OrderAccepted;
-import examplefooddelivery.domain.OrderRejected;
-import examplefooddelivery.domain.CookStarted;
-import examplefooddelivery.domain.CookFinished;
 import examplefooddelivery.StoreApplication;
 import javax.persistence.*;
 import java.util.List;
@@ -56,28 +52,11 @@ public class Order  {
     
     private String status;
 
-    @PostPersist
-    public void onPostPersist(){
-
-
-        OrderAccepted orderAccepted = new OrderAccepted(this);
-        orderAccepted.publishAfterCommit();
-
-
-
-        OrderRejected orderRejected = new OrderRejected(this);
-        orderRejected.publishAfterCommit();
-
-
-
-        CookStarted cookStarted = new CookStarted(this);
-        cookStarted.publishAfterCommit();
-
-
-
-        CookFinished cookFinished = new CookFinished(this);
-        cookFinished.publishAfterCommit();
-
+    @PrePersist
+    public void onPrePersist(){
+    }
+    @PreUpdate
+    public void onPreUpdate(){
     }
 
     public static OrderRepository repository(){
@@ -87,8 +66,28 @@ public class Order  {
 
 
 
+    public void accept(){
+        OrderAccepted orderAccepted = new OrderAccepted(this);
+        orderAccepted.publishAfterCommit();
 
-    public static void orderPass(OrderPaid orderPaid){
+    }
+    public void reject(){
+        OrderRejected orderRejected = new OrderRejected(this);
+        orderRejected.publishAfterCommit();
+
+    }
+    public void cookStart(){
+        CookStarted cookStarted = new CookStarted(this);
+        cookStarted.publishAfterCommit();
+
+    }
+    public void cookFinish(){
+        CookFinished cookFinished = new CookFinished(this);
+        cookFinished.publishAfterCommit();
+
+    }
+
+    public static void passOrderInfo(OrderPaid orderPaid){
 
         /** Example 1:  new item 
         Order order = new Order();
