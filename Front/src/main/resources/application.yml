@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: front
+  main:
+    allow-bean-definition-overriding: true
+
 ---
 
 spring:
