@@ -106,23 +106,6 @@ public class PolicyHandler{
 
     }
 
-    @StreamListener(value=KafkaProcessor.INPUT, condition="headers['type']=='DeliveryFinished'")
-    public void wheneverDeliveryFinished_ReviewWrite(@Payload DeliveryFinished deliveryFinished){
-
-        DeliveryFinished event = deliveryFinished;
-        System.out.println("\n\n##### listener ReviewWrite : " + deliveryFinished + "\n\n");
-
-
-        
-
-        // Sample Logic //
-        Review.reviewWrite(event);
-        
-
-        
-
-    }
-
 }
 
 

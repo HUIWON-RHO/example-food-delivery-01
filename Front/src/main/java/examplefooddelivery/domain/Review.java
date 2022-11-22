@@ -1,6 +1,5 @@
 package examplefooddelivery.domain;
 
-import examplefooddelivery.domain.ReviewCreated;
 import examplefooddelivery.FrontApplication;
 import javax.persistence.*;
 import java.util.List;
@@ -43,11 +42,6 @@ public class Review  {
 
     @PostPersist
     public void onPostPersist(){
-
-
-        ReviewCreated reviewCreated = new ReviewCreated(this);
-        reviewCreated.publishAfterCommit();
-
     }
 
     public static ReviewRepository repository(){
@@ -57,28 +51,12 @@ public class Review  {
 
 
 
+    public void reviewWrite(){
+        ReviewCreated reviewCreated = new ReviewCreated(this);
+        reviewCreated.publishAfterCommit();
 
-    public static void reviewWrite(DeliveryFinished deliveryFinished){
-
-        /** Example 1:  new item 
-        Review review = new Review();
-        repository().save(review);
-
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(deliveryFinished.get???()).ifPresent(review->{
-            
-            review // do something
-            repository().save(review);
-
-
-         });
-        */
-
-        
     }
+
 
 
 }

@@ -20,8 +20,9 @@
             <Number label="OrderId" v-model="value.orderId" :editMode="editMode"/>
             <String label="Food" v-model="value.food" :editMode="editMode"/>
             <Number label="Price" v-model="value.price" :editMode="editMode"/>
-            <String label="CustomerId" v-model="value.customerId" :editMode="editMode"/>
-            <String label="CustomerAddress" v-model="value.customerAddress" :editMode="editMode"/>
+            <Number label="CustomerId" v-model="value.customerId" :editMode="editMode"/>
+            <Number label="CustomerAddress" v-model="value.customerAddress" :editMode="editMode"/>
+            <String label="Status" v-model="value.status" :editMode="editMode"/>
         </v-card-text>
 
         <v-card-actions>
@@ -65,17 +66,33 @@
                     v-if="!editMode"
                     color="deep-purple lighten-2"
                     text
-                    @click="order"
+                    @click="accept"
             >
-                Order
+                Accept
             </v-btn>
             <v-btn
                     v-if="!editMode"
                     color="deep-purple lighten-2"
                     text
-                    @click="cancel"
+                    @click="reject"
             >
-                Cancel
+                Reject
+            </v-btn>
+            <v-btn
+                    v-if="!editMode"
+                    color="deep-purple lighten-2"
+                    text
+                    @click="cookStart"
+            >
+                CookStart
+            </v-btn>
+            <v-btn
+                    v-if="!editMode"
+                    color="deep-purple lighten-2"
+                    text
+                    @click="cookFinish"
+            >
+                CookFinish
             </v-btn>
         </v-card-actions>
 
@@ -208,10 +225,10 @@
             change(){
                 this.$emit('input', this.value);
             },
-            async order() {
+            async accept() {
                 try {
                     if(!this.offline) {
-                        var temp = await axios.put(axios.fixUrl(this.value._links['order'].href))
+                        var temp = await axios.put(axios.fixUrl(this.value._links['accept'].href))
                         for(var k in temp.data) {
                             this.value[k]=temp.data[k];
                         }
@@ -227,10 +244,48 @@
                     }
                 }
             },
-            async cancel() {
+            async reject() {
                 try {
                     if(!this.offline) {
-                        var temp = await axios.put(axios.fixUrl(this.value._links['cancel'].href))
+                        var temp = await axios.put(axios.fixUrl(this.value._links['reject'].href))
+                        for(var k in temp.data) {
+                            this.value[k]=temp.data[k];
+                        }
+                    }
+
+                    this.editMode = false;
+                } catch(e) {
+                    this.snackbar.status = true
+                    if(e.response && e.response.data.message) {
+                        this.snackbar.text = e.response.data.message
+                    } else {
+                        this.snackbar.text = e
+                    }
+                }
+            },
+            async cookStart() {
+                try {
+                    if(!this.offline) {
+                        var temp = await axios.put(axios.fixUrl(this.value._links['cookstart'].href))
+                        for(var k in temp.data) {
+                            this.value[k]=temp.data[k];
+                        }
+                    }
+
+                    this.editMode = false;
+                } catch(e) {
+                    this.snackbar.status = true
+                    if(e.response && e.response.data.message) {
+                        this.snackbar.text = e.response.data.message
+                    } else {
+                        this.snackbar.text = e
+                    }
+                }
+            },
+            async cookFinish() {
+                try {
+                    if(!this.offline) {
+                        var temp = await axios.put(axios.fixUrl(this.value._links['cookfinish'].href))
                         for(var k in temp.data) {
                             this.value[k]=temp.data[k];
                         }

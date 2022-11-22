@@ -11,6 +11,7 @@ public class ReviewHateoasProcessor implements RepresentationModelProcessor<Enti
 
     @Override
     public EntityModel<Review> process(EntityModel<Review> model) {
+        model.add(Link.of(model.getRequiredLink("self").getHref() + "/reviewwrite").withRel("reviewwrite"));
 
         
         return model;

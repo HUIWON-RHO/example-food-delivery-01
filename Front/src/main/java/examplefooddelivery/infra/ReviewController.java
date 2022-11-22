@@ -20,4 +20,23 @@ public class ReviewController {
 
 
 
+    @RequestMapping(value = "reviews/{id}/reviewwrite",
+        method = RequestMethod.PUT,
+        produces = "application/json;charset=UTF-8")
+    public Review reviewWrite(@PathVariable(value = "id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+            System.out.println("##### /review/reviewWrite  called #####");
+            Optional<Review> optionalReview = reviewRepository.findById(id);
+            
+            optionalReview.orElseThrow(()-> new Exception("No Entity Found"));
+            Review review = optionalReview.get();
+            review.reviewWrite();
+            
+            reviewRepository.save(review);
+            return review;
+            
+    }
+    
+
+
+
 }
